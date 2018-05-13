@@ -21,7 +21,7 @@ using std::endl;
 int main()
 {
 
-	//int graph[6][6];
+	int graph[6][6];
 	ReadMatrix();
 	FillGraph(6,6);
 	//dijkstra(ReadMatrix(graph, 0);
