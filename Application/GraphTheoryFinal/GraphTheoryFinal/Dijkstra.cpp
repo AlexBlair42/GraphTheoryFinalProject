@@ -1,13 +1,14 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
-#include <queue>
 #include <limits.h>
+#include <stdio.h>
+
 #include "Dijkstra.h"
 
+#define V 6
 
-#define V 9
-
+///////////////////////////////////////////////////////////////////////////////////////
 int minimum_path(int distance[], bool set[])
 {
 	// Initialize minimums 
@@ -22,16 +23,21 @@ int minimum_path(int distance[], bool set[])
 	}
 	return min_index;
 }
+//////////////////////////////////////////////////////////////////////////////////////
 
-int Print_Solution(int distance[], int n)
+
+//////////////////////////////////////////////////////////////////////////////////////
+void Print_Solution(int distance[], int n)
 {
 	std::cout << "Vertex distance from source is" << std::endl;
 	for (int i = 0; i < V; i++)
 	{
-		sprintf("%d tt %d \n", i, distance[i]);
+		printf("%d tt %d \n", i, distance[i]);
 	}
 }
+//////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////
 void dijkstra(int graph[V][V], int src)
 {
 	int distance[V];
@@ -62,3 +68,4 @@ void dijkstra(int graph[V][V], int src)
 	}
 	Print_Solution(distance, V);
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
