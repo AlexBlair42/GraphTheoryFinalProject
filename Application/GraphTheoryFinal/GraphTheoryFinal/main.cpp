@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "Dijkstra.h"
 #include "FileReader.h"
 using std::cin;
@@ -19,8 +20,11 @@ using std::endl;
 
 int main()
 {
+
+	//int graph[6][6];
 	ReadMatrix();
-	dijkstra(&graph, 0);
+	FillGraph(6,6);
+	//dijkstra(ReadMatrix(graph, 0);
 
 
 	std::cin.get();

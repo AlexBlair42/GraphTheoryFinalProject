@@ -1,4 +1,7 @@
 #pragma once
 
-int graph[6][6];
 void ReadMatrix();
+
+int** FillGraph(unsigned height, unsigned width);
+
+int storage[6][6];

@@ -4,9 +4,10 @@
 #include <fstream>
 #include <iostream>
 
+
 // File to read in a matrix for adjacency
 void ReadMatrix()
-{	
+{
 	std::ifstream in("matrix.txt");
 
 	if (!in)
@@ -19,7 +20,7 @@ void ReadMatrix()
 	{
 		for (int j = 0; j < 6; j++)
 		{
-			in >> graph[i][j];
+			in >> storage[i][j];
 		}
 	}
 	in.close();
@@ -37,3 +38,33 @@ void ReadMatrix()
 	}
 	*/
 }
+
+int** FillGraph(int height, int width)
+{
+	int** graph = 0;
+	graph = new int*[height];
+
+	for (int h = 0; h < height; h++)
+	{
+		graph[h] = new int[width];
+		for (int w = 0; w < width; w++)
+		{
+			storage[h][w] = graph[h][w];
+			graph[h][w] = w + width * h;
+		}
+	}
+
+	for (int k = 0; k < 6; k++)
+	{
+		for (int y = 0; y < 6; y++)
+		{
+			std::cout << storage[k][y] << " ";
+		}
+		std::cout << std::endl;
+	}
+	return graph;
+}
+
+
+
+

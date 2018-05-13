@@ -1,8 +1,8 @@
-﻿  Dijkstra.cpp
-  Generating Code...
-  Compiling...
-  main.cpp
-c:\github\graphtheoryfinalproject\application\graphtheoryfinal\graphtheoryfinal\main.cpp(23): error C2664: 'void dijkstra(int,int)': cannot convert argument 1 from 'int (*)[6][6]' to 'int'
-  c:\github\graphtheoryfinalproject\application\graphtheoryfinal\graphtheoryfinal\main.cpp(23): note: There is no context in which this conversion is possible
+﻿  main.cpp
   FileReader.cpp
   Generating Code...
+  Skipping... (no relevant changes detected)
+  Dijkstra.cpp
+main.obj : error LNK2005: "int (* storage)[6]" (?storage@@3PAY05HA) already defined in FileReader.obj
+main.obj : error LNK2019: unresolved external symbol "int * * __cdecl FillGraph(unsigned int,unsigned int)" (?FillGraph@@YAPAPAHII@Z) referenced in function _main
+C:\GitHub\GraphTheoryFinalProject\Application\GraphTheoryFinal\Debug\GraphTheoryFinal.exe : fatal error LNK1120: 1 unresolved externals
