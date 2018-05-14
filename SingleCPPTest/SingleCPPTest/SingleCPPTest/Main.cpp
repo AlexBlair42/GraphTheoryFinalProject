@@ -1,156 +1,113 @@
-#include <iostream>
-#include <fstream>
-using std::cin;
-using std::endl;
-using std::cout;
+// A C++ program for Dijkstra's single source shortest path algorithm.
+// The program is for adjacency matrix representation of the graph
 
+#include <stdio.h>
+#include <iostream>
+#include <limits.h>
+#include <fstream>
+// Number of vertices in the graph
 #define V 6
 
-void ReadMatrix();
-
-int** FillGraph(unsigned height, unsigned width);
-
-int storage[6][6];
-
-int minimum_path(int distance[], bool set[]);
-
-void Print_Solution(int distance[], int n);
-
-void dijkstra(int graph, int src);
-
-
-int main()
+// A utility function to find the vertex with minimum distance value, from
+// the set of vertices not yet included in shortest path tree
+int minDistance(int dist[], bool sptSet[])
 {
+	// Initialize min value
+	int min = INT_MAX, min_index;
 
-	int graph[6][6];
-	ReadMatrix();
-	FillGraph(6, 6);
-	//dijkstra(ReadMatrix(graph, 0);
+	for (int v = 0; v < V; v++)
+		if (sptSet[v] == false && dist[v] <= min)
+			min = dist[v], min_index = v;
 
-
-	std::cin.get();
+	return min_index;
 }
 
-
-// File to read in a matrix for adjacency
-void ReadMatrix()
+// A utility function to print the constructed distance array
+void printSolution(int dist[], int n)
 {
+	printf("Vertex Distance from Source\n");
+	for (int i = 0; i < V; i++)
+		printf("%d tt %d\n", i, dist[i]);
+}
+
+// Funtion that implements Dijkstra's single source shortest path algorithm
+// for a graph represented using adjacency matrix representation
+void dijkstra(int graph[V][V], int src)
+{
+	int dist[V];	 // The output array. dist[i] will hold the shortest
+					 // distance from src to i
+
+	bool sptSet[V]; // sptSet[i] will true if vertex i is included in shortest
+					// path tree or shortest distance from src to i is finalized
+
+					// Initialize all distances as INFINITE and stpSet[] as false
+	for (int i = 0; i < V; i++)
+		dist[i] = INT_MAX, sptSet[i] = false;
+
+	// Distance of source vertex from itself is always 0
+	dist[src] = 0;
+
+	// Find shortest path for all vertices
+	for (int count = 0; count < V - 1; count++)
+	{
+		// Pick the minimum distance vertex from the set of vertices not
+		// yet processed. u is always equal to src in first iteration.
+		int u = minDistance(dist, sptSet);
+
+		// Mark the picked vertex as processed
+		sptSet[u] = true;
+
+		// Update dist value of the adjacent vertices of the picked vertex.
+		for (int v = 0; v < V; v++)
+
+			// Update dist[v] only if is not in sptSet, there is an edge from 
+			// u to v, and total weight of path from src to v through u is 
+			// smaller than current value of dist[v]
+			if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX
+				&& dist[u] + graph[u][v] < dist[v])
+				dist[v] = dist[u] + graph[u][v];
+	}
+
+	// print the constructed distance array
+	printSolution(dist, V);
+}
+
+// driver program to test above function
+int main()
+{
+	/* Let us create the example graph discussed above */
+	
+	/*
+	int graph[V][V] = { { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+	{ 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+	{ 0, 8, 0, 7, 0, 4, 0, 0, 2 },
+	{ 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+	{ 0, 0, 0, 9, 0, 10, 0, 0, 0 },
+	{ 0, 0, 4, 14, 10, 0, 2, 0, 0 },
+	{ 0, 0, 0, 0, 0, 2, 0, 1, 6 },
+	{ 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+	{ 0, 0, 2, 0, 0, 0, 6, 7, 0 }
+	};
+	*/
+	int graph[V][V];
+
 	std::ifstream in("matrix.txt");
 
 	if (!in)
 	{
-		std::cout << "Cannot open matrix file." << std::endl;
-		return;
+		std::cout << "Cannot open file matrix.txt" << std::endl;
 	}
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < V; i++)
 	{
-		for (int j = 0; j < 6; j++)
+		for (int j = 0; j < V; j++)
 		{
-			in >> storage[i][j];
+			in >> graph[i][j];
 		}
 	}
 	in.close();
 
-	////////////////// Loop for testing input of array
+	dijkstra(graph, 0);
 
-	/*
-	for (int k = 0; k < 6; k++)
-	{
-	for (int y = 0; y < 6; y++)
-	{
-	std::cout << storage[k][y] << " ";
-	}
-	std::cout << std::endl;
-	}
-	*/
+	return 0;
 }
-
-int** FillGraph(int height, int width)
-{
-	int** graph = 0;
-	graph = new int*[height];
-
-	for (int h = 0; h < height; h++)
-	{
-		graph[h] = new int[width];
-		for (int w = 0; w < width; w++)
-		{
-			storage[h][w] = graph[h][w];
-			graph[h][w] = w + width * h;
-		}
-	}
-
-	for (int k = 0; k < 6; k++)
-	{
-		for (int y = 0; y < 6; y++)
-		{
-			std::cout << storage[k][y] << " ";
-		}
-		std::cout << std::endl;
-	}
-	return graph;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////
-int minimum_path(int distance[], bool set[])
-{
-	// Initialize minimums 
-	int min = INT_MAX, min_index;
-
-	for (int v = 0; v<V; v++)
-	{
-		if (set[v] == false && distance[v] <= min)
-		{
-			min = distance[v], min_index = v;
-		}
-	}
-	return min_index;
-}
-//////////////////////////////////////////////////////////////////////////////////////
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-void Print_Solution(int distance[], int n)
-{
-	std::cout << "Vertex distance from source is" << std::endl;
-	for (int i = 0; i < V; i++)
-	{
-		printf("%d tt %d \n", i, distance[i]);
-	}
-}
-//////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////
-void dijkstra(int graph[V][V], int src)
-{
-	int distance[V];
-
-	bool set[V];
-
-	for (int i = 0; i < V; i++)
-	{
-		distance[i] = INT_MAX, set[i] = false;
-
-		distance[src] = 0;
-
-	}
-
-	for (int count = 0; count < V - 1; count++)
-	{
-		int u = minimum_path(distance, set);
-
-		set[u] = true;
-
-		for (int b = 0; b < V; b++)
-		{
-			if (!set[b] && graph[u][b] && distance[u] != INT_MAX && distance[u] + graph[u][b] < distance[b])
-			{
-				distance[b] = distance[u] + graph[u][b];
-			}
-		}
-	}
-	Print_Solution(distance, V);
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////
-

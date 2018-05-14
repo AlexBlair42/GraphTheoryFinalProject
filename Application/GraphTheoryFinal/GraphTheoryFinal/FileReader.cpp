@@ -1,13 +1,15 @@
 #include "FileReader.h"
-#include "Dijkstra.h"
+//#include "Dijkstra.h"
 
 #include <fstream>
 #include <iostream>
 
 
 // File to read in a matrix for adjacency
+///////////////////////////////////////////////////////////////////////////
 void ReadMatrix()
 {
+	int storage[6][6];
 	std::ifstream in("matrix.txt");
 
 	if (!in)
@@ -16,9 +18,9 @@ void ReadMatrix()
 		return;
 	}
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < sizeof storage; i++)
 	{
-		for (int j = 0; j < 6; j++)
+		for (int j = 0; j < sizeof storage; j++)
 		{
 			in >> storage[i][j];
 		}
@@ -27,7 +29,6 @@ void ReadMatrix()
 
 	////////////////// Loop for testing input of array
 
-	/*
 	for (int k = 0; k < 6; k++)
 	{
 		for (int y = 0; y < 6; y++)
@@ -36,9 +37,12 @@ void ReadMatrix()
 		}
 		std::cout << std::endl;
 	}
-	*/
 }
+///////////////////////////////////////////////////////////////////////////
 
+
+//////////////////////////////////////////////////////////////////////////
+/*
 int** FillGraph(int height, int width)
 {
 	int** graph = 0;
@@ -64,7 +68,7 @@ int** FillGraph(int height, int width)
 	}
 	return graph;
 }
-
-
+////////////////////////////////////////////////////////////////////////
+*/
 
 

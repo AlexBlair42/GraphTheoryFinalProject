@@ -1,10 +1,12 @@
+
 #include <iostream>
 #include <cstdio>
 #include <string>
-#include <limits.h>
-#include <stdio.h>
+#include <climits>
+#include <cstdio>
 
 #include "Dijkstra.h"
+//#include "FileReader.h"
 
 #define V 6
 
@@ -14,7 +16,7 @@ int minimum_path(int distance[], bool set[])
 	// Initialize minimums 
 	int min = INT_MAX, min_index;
 
-	for(int v = 0; v<V; v++)
+	for (int v = 0; v < V; v++)
 	{
 		if (set[v] == false && distance[v] <= min)
 		{
@@ -32,7 +34,7 @@ void Print_Solution(int distance[], int n)
 	std::cout << "Vertex distance from source is" << std::endl;
 	for (int i = 0; i < V; i++)
 	{
-		printf("%d tt %d \n", i, distance[i]);
+		printf("%d , %d \n", i, distance[i]);
 	}
 }
 //////////////////////////////////////////////////////////////////////////////////////
@@ -68,4 +70,4 @@ void dijkstra(int graph[V][V], int src)
 	}
 	Print_Solution(distance, V);
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////  
